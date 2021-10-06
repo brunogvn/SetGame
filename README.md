@@ -4,7 +4,7 @@ Esse jogo foi feito com base no [Assignment 3](https://cs193p.sites.stanford.edu
 
 # Set
 
-O jogo  [Set](https://drive.google.com/drive/folders/1qBI3aGCF3FPsommP-MyRIS_GU953RLy8) é jogado com um baralho contendo diversas cartas. Cada carta do baralho possui um conjunto de características que são utilizadas para que um grupo seja formado:
+O jogo  [Set](https://drive.google.com/file/d/1_h08Fs2-zyuH3m2cDw_2UsVlWCIDDz41/view) é jogado com um baralho contendo diversas cartas. Cada carta do baralho possui um conjunto de características que são utilizadas para que um grupo seja formado:
 
 - Forma geométrica (ovais, riscos e losangos)
 - Quantidade de formas (1, 2 ou 3)
