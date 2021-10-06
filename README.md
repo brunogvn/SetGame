@@ -31,5 +31,4 @@ Para o planejamento do aplicativo, foi consultado o PDF do [Assignment 3](https:
 |**Não será feito**|São tarefas que não serão realizadas durante o prazo da entrega do trabalho.|
 
 Segue abaixo um GIF demonstrando como ficou o *board* do *Trello* após a divisão
-
-*to do: adicionar "GIF IFMG Mobile.gif"*
+![Board Trello](https://i.imgur.com/V7C4X6F.gif)
