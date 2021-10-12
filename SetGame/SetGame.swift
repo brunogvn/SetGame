@@ -20,6 +20,7 @@ struct SetGame<CardContent> where CardContent: Equatable{
     
         generateCards(numberOfShapes: numberOfShapes, cardContentFactory: cardContentFactory)
  
+        deck.shuffle()
         dealCards(12)
     }
     
@@ -66,10 +67,38 @@ struct SetGame<CardContent> where CardContent: Equatable{
         }
     }
     
-    func choose(card: Card){
-        // To be implemented
+    mutating func choose(card: Card){
+        var playerHasSelectedThreeCards: Bool
+        if let chosenIndex: Int = cardsInHand.firstIndex(matching: card), !cardsInHand[chosenIndex].isMatched{
+            //If isSelected == false, the app needs to mark the card as selected and add the card index to the arrayOfIndexes
+            if cardsInHand[chosenIndex].isSelected == false{
+                cardsInHand[chosenIndex].isSelected = !cardsInHand[chosenIndex].isSelected
+                
+                for indexOfCardInHand in 0..<cardsInHand.count{
+                    if cardsInHand[indexOfCardInHand].isSelected == true{
+                        //goes through the whole hand and check which cards have isSelected var set as true
+                        arrayOfIndexes.append(indexOfCardInHand)
+                    }
+                }
+                playerHasSelectedThreeCards = arrayOfIndexes.count == 3
+                if playerHasSelectedThreeCards{
+                    checkIfCardsArePartOfSet()
+                }
+                //Clear the array
+                arrayOfIndexes = Array<Int>()
+            }else{
+                //If isSelected == true, the app needs to mark the card as NOT selected
+                cardsInHand[chosenIndex].isSelected = !cardsInHand[chosenIndex].isSelected
+            }
+            
+        }
     }
     
+    private func checkIfCardsArePartOfSet(){
+        //to be implemented
+    }
+    
+
     mutating func dealCards(_ numberOfCardsToBeDealt: Int){
         if deck.count >= numberOfCardsToBeDealt{
             for _ in 0..<numberOfCardsToBeDealt{
@@ -84,8 +113,6 @@ struct SetGame<CardContent> where CardContent: Equatable{
         var isMatched: Bool = false
         var isSelected: Bool = false
         var isInHand: Bool = false
-        var wrongMatch: Bool = false
-        
         
         var itemQuantity: Int
         var itemShape: CardContent

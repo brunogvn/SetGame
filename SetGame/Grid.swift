@@ -29,6 +29,7 @@ struct Grid<Item, ItemView>: View where Item: Identifiable, ItemView: View{
                 viewForItem(item)
                     .frame(width: frameWidth, height: frameHeight)
                     .position(framePosition)
+                    .transition(AnyTransition.offset(x: CGFloat.random(in: -1000..<1000), y: CGFloat.random(in: -1000..<1000))).transition(AnyTransition.offset(x: CGFloat.random(in: -1000..<1000), y: CGFloat.random(in: -1000..<1000)))
             }
         }
     }

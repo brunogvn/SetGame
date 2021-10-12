@@ -59,11 +59,61 @@ struct CardView: View {
         GeometryReader{ geometry in
             Group{
                 ZStack{
-                    RoundedRectangle(cornerRadius: cornerRadius).fill(Color.white)
-                    RoundedRectangle(cornerRadius: cornerRadius).stroke(lineWidth: edgeLineWidth).foregroundColor(Color.black)
+                    if card.isSelected{
+                        RoundedRectangle(cornerRadius: cornerRadius).fill(card.isMatched ? Color.green : Color.gray)
+                            .shadow(color: .black, radius: 5.0, x: 1.0, y: 1.0)
+                            .opacity(0.5)
+                        
+                        RoundedRectangle(cornerRadius: cornerRadius).stroke(lineWidth: edgeLineWidth).foregroundColor(Color.black)
+                    }else{
+                        RoundedRectangle(cornerRadius: cornerRadius).fill(Color.white)
+                        RoundedRectangle(cornerRadius: cornerRadius).stroke(lineWidth: edgeLineWidth).foregroundColor(Color.black)
+                    }
+                    VStack{
+                        ForEach(0..<card.itemQuantity){ _ in
+                            ZStack {
+                                transformStringToShape()
+                                    .foregroundColor(card.itemFill == "translucent" ? Color.white : card.itemColor)
+                                if(card.itemFill == "translucent"){
+                                    transformStringToShapeWithStroke()
+                                        .foregroundColor(card.itemColor)
+                                }
+                            }
+                        }
+                        .frame(width: 30, height: 15)
+                        .opacity(card.itemFill == "noFill" ? 0.3 : 1)
+                    }
                 }
             }
         }
+    }
+    
+    func transformStringToShape() -> some View{
+        
+        var returnedView: AnyView?
+        
+        if(card.itemShape == "capsule"){
+            returnedView = AnyView(Capsule())
+        }else  if(card.itemShape == "circle"){
+            returnedView = AnyView(Circle())
+        }else if(card.itemShape == "rectangle"){
+            returnedView = AnyView(Rectangle())
+        }
+        return returnedView!
+    }
+    
+    func transformStringToShapeWithStroke() -> some View{
+        
+        var returnedView: AnyView?
+        
+        if(card.itemShape == "capsule"){
+            returnedView = AnyView(Capsule().stroke(lineWidth: edgeLineWidth))
+        }else  if(card.itemShape == "circle"){
+            returnedView = AnyView(Circle().stroke(lineWidth: edgeLineWidth))
+        }else if(card.itemShape == "rectangle"){
+            returnedView = AnyView(Rectangle().stroke(lineWidth: edgeLineWidth))
+        }
+        return returnedView!
     }
     
     

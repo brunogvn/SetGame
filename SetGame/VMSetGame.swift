@@ -39,6 +39,6 @@ class VMSetGame: ObservableObject{
     }
     
     func choose(card: SetGame<String>.Card) {
-        // to be implemented
+        game.choose(card: card)
     }
 }
