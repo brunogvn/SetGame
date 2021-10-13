@@ -58,31 +58,45 @@ struct CardView: View {
     var body: some View{
         GeometryReader{ geometry in
             Group{
-                ZStack{
-                    if card.isSelected{
-                        RoundedRectangle(cornerRadius: cornerRadius).fill(card.isMatched ? Color.green : Color.gray)
-                            .shadow(color: .black, radius: 5.0, x: 1.0, y: 1.0)
-                            .opacity(0.5)
-                        
-                        RoundedRectangle(cornerRadius: cornerRadius).stroke(lineWidth: edgeLineWidth).foregroundColor(Color.black)
-                    }else{
-                        RoundedRectangle(cornerRadius: cornerRadius).fill(Color.white)
-                        RoundedRectangle(cornerRadius: cornerRadius).stroke(lineWidth: edgeLineWidth).foregroundColor(Color.black)
-                    }
-                    VStack{
-                        ForEach(0..<card.itemQuantity){ _ in
-                            ZStack {
-                                transformStringToShape()
-                                    .foregroundColor(card.itemFill == "translucent" ? Color.white : card.itemColor)
-                                if(card.itemFill == "translucent"){
-                                    transformStringToShapeWithStroke()
-                                        .foregroundColor(card.itemColor)
-                                }
+                if !card.isMatched{
+                    ZStack{
+                        if card.wrongMatch{
+                            RoundedRectangle(cornerRadius: cornerRadius).fill(Color.red)
+                                .shadow(color: .black, radius: 5.0, x: 1.0, y: 1.0)
+                                .opacity(0.5)
+                            RoundedRectangle(cornerRadius: cornerRadius).stroke(lineWidth: edgeLineWidth).foregroundColor(Color.black)
+                        }else{
+                            if card.isSelected{
+                                RoundedRectangle(cornerRadius: cornerRadius).fill(card.isMatched ? Color.green : Color.gray)
+                                    .shadow(color: .black, radius: 5.0, x: 1.0, y: 1.0)
+                                    .opacity(0.5)
+                                
+                                RoundedRectangle(cornerRadius: cornerRadius).stroke(lineWidth: edgeLineWidth).foregroundColor(Color.black)
+                            }else{
+                                RoundedRectangle(cornerRadius: cornerRadius).fill(Color.white)
+                                RoundedRectangle(cornerRadius: cornerRadius).stroke(lineWidth: edgeLineWidth).foregroundColor(Color.black)
                             }
                         }
-                        .frame(width: 30, height: 15)
-                        .opacity(card.itemFill == "noFill" ? 0.3 : 1)
+                        VStack{
+                            ForEach(0..<card.itemQuantity){ _ in
+                                ZStack {
+                                    transformStringToShape()
+                                        .foregroundColor(card.itemFill == "translucent" ? Color.white : card.itemColor)
+                                    if(card.itemFill == "translucent"){
+                                        transformStringToShapeWithStroke()
+                                            .foregroundColor(card.itemColor)
+                                    }
+                                }
+                            }
+                            .frame(width: 30, height: 15)
+                            .opacity(card.itemFill == "noFill" ? 0.3 : 1)
+                        }
                     }
+                }else{
+                    RoundedRectangle(cornerRadius: cornerRadius).fill(Color.green)
+                        .shadow(color: .black, radius: 5.0, x: 1.0, y: 1.0)
+                        .opacity(0.5)
+                    RoundedRectangle(cornerRadius: cornerRadius).stroke(lineWidth: edgeLineWidth).foregroundColor(Color.black)
                 }
             }
         }
