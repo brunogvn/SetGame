@@ -81,15 +81,15 @@ struct CardView: View {
                             ForEach(0..<card.itemQuantity){ _ in
                                 ZStack {
                                     transformStringToShape()
-                                        .foregroundColor(card.itemFill == "translucent" ? Color.white : card.itemColor)
-                                    if(card.itemFill == "translucent"){
+                                        .foregroundColor(card.itemFill == .translucent ? Color.white : card.itemColor)
+                                    if(card.itemFill == .translucent){
                                         transformStringToShapeWithStroke()
                                             .foregroundColor(card.itemColor)
                                     }
                                 }
                             }
                             .frame(width: 30, height: 15)
-                            .opacity(card.itemFill == "noFill" ? 0.3 : 1)
+                            .opacity(card.itemFill == .noFill ? 0.3 : 1)
                         }
                     }
                 }else{

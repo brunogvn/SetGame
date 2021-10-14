@@ -27,7 +27,7 @@ struct SetGame<CardContent> where CardContent: Equatable{
     mutating func generateCards(numberOfShapes: Int, cardContentFactory: (Int) -> CardContent){
         
         var itemQuantity: Int = 0
-        var itemFill: String = ""
+        var itemFill: ItemFill?
         var itemColor: Color = .black
         var itemShape: CardContent
         var id: Int = 0
@@ -49,18 +49,18 @@ struct SetGame<CardContent> where CardContent: Equatable{
                     }
                     for fillOfItem in 0..<3 {
                         if (fillOfItem == 0){
-                            itemFill = "noFill"
+                            itemFill = .noFill
                         }
                         if (fillOfItem == 1){
-                            itemFill = "translucent"
+                            itemFill = .translucent
                         }
                         if (fillOfItem == 2){
-                            itemFill = "fill"
+                            itemFill = .fill
                         }
                         id += 1
                         deck.append(Card(itemQuantity: itemQuantity,
                                          itemShape: itemShape, itemColor: itemColor,
-                                         itemFill: itemFill, id: id))
+                                         itemFill: itemFill!, id: id))
                     }
                 }
             }
@@ -97,6 +97,17 @@ struct SetGame<CardContent> where CardContent: Equatable{
         
     }
     
+    private func switchItemFill(itemFill: ItemFill) -> String {
+        switch itemFill {
+        case .noFill:
+            return "noFill"
+        case .translucent:
+            return "translucent"
+        case .fill:
+            return "fill"
+        }
+    }
+    
     mutating private func checkIfCardsArePartOfSet(){
         let shapeOfFirstSelectedCard = cardsInHand[arrayOfIndexes[0]].itemShape
         let shapeOfSecondSelectedCard = cardsInHand[arrayOfIndexes[1]].itemShape
@@ -110,9 +121,9 @@ struct SetGame<CardContent> where CardContent: Equatable{
         let colorOfSecondSelectedCard = cardsInHand[arrayOfIndexes[1]].itemColor
         let colorOfThirdSelectedCard = cardsInHand[arrayOfIndexes[2]].itemColor
         
-        let fillOfFirstSelectedCard = cardsInHand[arrayOfIndexes[0]].itemFill
-        let fillOfSecondSelectedCard = cardsInHand[arrayOfIndexes[1]].itemFill
-        let fillOfThirdSelectedCard = cardsInHand[arrayOfIndexes[2]].itemFill
+        let fillOfFirstSelectedCard = switchItemFill(itemFill: cardsInHand[arrayOfIndexes[0]].itemFill)
+        let fillOfSecondSelectedCard = switchItemFill(itemFill: cardsInHand[arrayOfIndexes[1]].itemFill)
+        let fillOfThirdSelectedCard = switchItemFill(itemFill: cardsInHand[arrayOfIndexes[2]].itemFill)
         
         
         let isShapeAMatch = checkIfIsMatch(shapeOfFirstSelectedCard,
@@ -219,7 +230,7 @@ struct SetGame<CardContent> where CardContent: Equatable{
         var itemQuantity: Int
         var itemShape: CardContent
         var itemColor: Color
-        var itemFill: String
+        var itemFill: ItemFill
         var id: Int
     }
 }
